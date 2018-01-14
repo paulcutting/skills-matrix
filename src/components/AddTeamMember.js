@@ -1,6 +1,6 @@
 
-import React, { Component } from 'react';
-import { Button, Form, FormControl, FormGroup } from 'react-bootstrap';
+import React from 'react';
+import { Button, FormControl, FormGroup } from 'react-bootstrap';
 
 class AddTeamMember extends React.Component {
   onSubmit = (e) => {

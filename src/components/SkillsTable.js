@@ -15,13 +15,20 @@ function unique(array) {
 };
 
 class MemberSkills extends React.Component {
+
+  onClick = (skill) => {
+    console.log(skill.score);
+    this.props.onClickSkill(skill);
+  };
+
   render() {
     let { teamMember } = this.props;
 
     return (
       teamMember.skills.map((skill) => {
+        console.log(skill);
         return (
-          <td>{skill.score}</td>
+          <td onClick={() => this.onClick(skill)}>{skill.score}</td>
         )
       })
     )
@@ -31,7 +38,7 @@ class MemberSkills extends React.Component {
 
 class SkillsTable extends React.Component {
   render() {
-    var { skillsTable } = this.props;
+    var { skillsTable, onClickSkill } = this.props;
 
     // Extract skills list from team list.
     let skills = []
@@ -60,7 +67,7 @@ class SkillsTable extends React.Component {
               return (
                 <tr>
                   <td>{teamMember.name}</td>
-                  <MemberSkills teamMember={teamMember} />
+                  <MemberSkills onClickSkill={onClickSkill} teamMember={teamMember} />
                 </tr>
               )
             })

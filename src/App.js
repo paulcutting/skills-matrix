@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
 import './App.css';
 import uuid from 'node-uuid';
 
-import { Grid, Row, Col, PageHeader, Panel, Button, Table } from 'react-bootstrap';
+import { Grid, Row, Col, Panel } from 'react-bootstrap';
 
-//import TeamMemberList from './components/TeamMemberList.js';
 import AddTeamMember from './components/AddTeamMember.js';
+import AddSkill from './components/AddSkill.js';
 import SkillsTable from './components/SkillsTable.js';
 
 class App extends Component {
@@ -23,7 +22,6 @@ class App extends Component {
           { name: 'redux', score: 2 },
           { name: 'javascript', score: 2 },          
           { name: 'C#', score: 0 }
-
         ]
       },
       {
@@ -84,6 +82,31 @@ class App extends Component {
     })
   }
 
+
+  handleAddSkill = (skillName) => {
+    console.log('Adding skill: ' + skillName);
+    let { teamMembers } = this.state;
+
+    teamMembers.forEach(person => {
+      person.skills.push({
+        name: skillName,
+        score: 0
+      })
+    });
+
+    console.log(teamMembers);
+
+    this.setState({
+      teamMembers: teamMembers
+    })
+  }
+
+
+  handleClickSkill = (skill) => {
+    skill.score++;
+    
+  }
+
   render() {
     let { teamMembers } = this.state;
     const transparentBg = { background: 'transparent' }
@@ -105,6 +128,7 @@ class App extends Component {
                   </Panel.Heading>
                   <Panel.Body>
                     <AddTeamMember onAddTeamMember={this.handleAddTeamMember} />
+                    <AddSkill onAddSkill={this.handleAddSkill} />
                   </Panel.Body>
                 </Panel>
               </Col>
@@ -114,7 +138,7 @@ class App extends Component {
                     <Panel.Title componentClass="h3">Skills Matrix</Panel.Title>
                   </Panel.Heading>
                   <Panel.Body>
-                      <SkillsTable skillsTable={teamMembers} />
+                      <SkillsTable skillsTable={teamMembers} onClickSkill={this.handleClickSkill} />
                   </Panel.Body>
                 </Panel>
               </Col>
