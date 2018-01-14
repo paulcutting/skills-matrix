@@ -5,8 +5,9 @@ import uuid from 'node-uuid';
 
 import { Grid, Row, Col, PageHeader, Panel, Button, Table } from 'react-bootstrap';
 
-import TeamMemberList from './components/TeamMemberList.js';
+//import TeamMemberList from './components/TeamMemberList.js';
 import AddTeamMember from './components/AddTeamMember.js';
+import SkillsTable from './components/SkillsTable.js';
 
 class App extends Component {
 
@@ -17,31 +18,43 @@ class App extends Component {
       {
         id: uuid(),
         name: 'Fred',
-        react: 3,
-        redux: 2,
-        javascript: 2
+        skills: [
+          { name: 'react', score: 3 },
+          { name: 'redux', score: 2 },
+          { name: 'javascript', score: 2 },          
+          { name: 'C#', score: 0 }
+
+        ]
       },
       {
         id: uuid(),
         name: 'Wilma',
-        react: 3,
-        redux: 2,
-        javascript: 2
+        skills: [
+          { name: 'react', score: 3 },
+          { name: 'redux', score: 2 },
+          { name: 'javascript', score: 2 },
+          { name: 'C#', score: 0 }
+        ]
       },
       {
         id: uuid(),
         name: 'Barney',
-        react: 2,
-        redux: 0,
-        javascript: 2,
-        csharp: 4
+        skills: [
+          { name: 'react', score: 1 },
+          { name: 'redux', score: 1 },
+          { name: 'javascript', score: 1 },
+          { name: 'C#', score: 0 }
+        ]
       },
       {
         id: uuid(),
         name: 'Betty',
-        react: 1,
-        redux: 1,
-        javascript: 4
+        skills: [
+          { name: 'react', score: 1 },
+          { name: 'redux', score: 1 },
+          { name: 'javascript', score: 1 },
+          { name: 'C#', score: 4 }
+        ]
       }
     ]
 
@@ -60,10 +73,12 @@ class App extends Component {
         {
           id: uuid(),
           name: name,
-          react: 0,
-          redux: 0,
-          javascript: 0,
-          csharp: 0
+          skills: [
+            { name: 'react', score: 0 },
+            { name: 'redux', score: 0 },
+            { name: 'javascript', score: 0 },
+            { name: 'C#', score: 0 }
+          ]
         }
       ]
     })
@@ -99,18 +114,7 @@ class App extends Component {
                     <Panel.Title componentClass="h3">Skills Matrix</Panel.Title>
                   </Panel.Heading>
                   <Panel.Body>
-                    <Table responsive>
-                      <thead>
-                        <tr>
-                          <th>#</th>
-                          <th>React</th>
-                          <th>Redux</th>
-                          <th>JavaScript</th>
-                          <th>C#</th>
-                        </tr>
-                      </thead>
-                      <TeamMemberList teamMembers={teamMembers} />
-                    </Table>
+                      <SkillsTable skillsTable={teamMembers} />
                   </Panel.Body>
                 </Panel>
               </Col>
