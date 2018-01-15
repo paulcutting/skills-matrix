@@ -20,7 +20,7 @@ class App extends Component {
         skills: [
           { name: 'react', score: 3 },
           { name: 'redux', score: 2 },
-          { name: 'javascript', score: 2 },          
+          { name: 'javascript', score: 2 },
           { name: 'C#', score: 0 }
         ]
       },
@@ -56,27 +56,32 @@ class App extends Component {
       }
     ]
 
+    let skills = [
+      { name: 'react', score: 0 },
+      { name: 'redux', score: 0 },
+      { name: 'javascript', score: 0 },
+      { name: 'C#', score: 0 }
+    ]
+
     super(props);
     this.state = {
-      teamMembers: teamMembers
+      teamMembers: teamMembers,
+      skills: skills
     };
   }
 
 
   handleAddTeamMember = (name) => {
     console.log('Adding team member: ' + name);
+    let { skills } = this.state;
+
     this.setState({
       teamMembers: [
         ...this.state.teamMembers,
         {
           id: uuid(),
           name: name,
-          skills: [
-            { name: 'react', score: 0 },
-            { name: 'redux', score: 0 },
-            { name: 'javascript', score: 0 },
-            { name: 'C#', score: 0 }
-          ]
+          skills: skills
         }
       ]
     })
@@ -85,7 +90,7 @@ class App extends Component {
 
   handleAddSkill = (skillName) => {
     console.log('Adding skill: ' + skillName);
-    let { teamMembers } = this.state;
+    let { teamMembers, skills } = this.state;
 
     teamMembers.forEach(person => {
       person.skills.push({
@@ -94,17 +99,21 @@ class App extends Component {
       })
     });
 
-    console.log(teamMembers);
+    skills.push({
+      name: skillName,
+      score: 0
+    })
 
     this.setState({
-      teamMembers: teamMembers
+      teamMembers: teamMembers,
+      skills: skills
     })
   }
 
 
   handleClickSkill = (skill) => {
     skill.score++;
-    
+    this.forceUpdate();
   }
 
   render() {
@@ -138,7 +147,7 @@ class App extends Component {
                     <Panel.Title componentClass="h3">Skills Matrix</Panel.Title>
                   </Panel.Heading>
                   <Panel.Body>
-                      <SkillsTable skillsTable={teamMembers} onClickSkill={this.handleClickSkill} />
+                    <SkillsTable skillsTable={teamMembers} onClickSkill={this.handleClickSkill} />
                   </Panel.Body>
                 </Panel>
               </Col>

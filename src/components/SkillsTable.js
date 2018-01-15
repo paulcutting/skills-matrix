@@ -6,7 +6,6 @@ function unique(array) {
   for (var i = 0; i < a.length; ++i) {
     for (var j = i + 1; j < a.length; ++j) {
       if (a[i].name === a[j].name) {
-        // Combine config
         a.splice(j--, 1);
       }
     }
@@ -17,7 +16,6 @@ function unique(array) {
 class MemberSkills extends React.Component {
 
   onClick = (skill) => {
-    console.log(skill.score);
     this.props.onClickSkill(skill);
   };
 
@@ -26,9 +24,8 @@ class MemberSkills extends React.Component {
 
     return (
       teamMember.skills.map((skill) => {
-        console.log(skill);
         return (
-          <td onClick={() => this.onClick(skill)}>{skill.score}</td>
+          <td className="skills-table-center" onClick={() => this.onClick(skill)}>{skill.score}</td>
         )
       })
     )
@@ -55,7 +52,7 @@ class SkillsTable extends React.Component {
             {
               skills.map((skill) => {
                 return (
-                  <th>{skill.name}</th>
+                  <th className="skills-table-center">{skill.name}</th>
                 )
               })
             }
