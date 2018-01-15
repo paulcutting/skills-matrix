@@ -18,40 +18,40 @@ class App extends Component {
         id: uuid(),
         name: 'Fred',
         skills: [
-          { name: 'react', score: 3 },
-          { name: 'redux', score: 2 },
-          { name: 'javascript', score: 2 },
-          { name: 'C#', score: 0 }
+          { skillId: uuid(), name: 'react', score: 3 },
+          { skillId: uuid(), name: 'redux', score: 2 },
+          { skillId: uuid(), name: 'javascript', score: 2 },
+          { skillId: uuid(), name: 'C#', score: 0 }
         ]
       },
       {
         id: uuid(),
         name: 'Wilma',
         skills: [
-          { name: 'react', score: 3 },
-          { name: 'redux', score: 2 },
-          { name: 'javascript', score: 2 },
-          { name: 'C#', score: 0 }
+          { skillId: uuid(), name: 'react', score: 3 },
+          { skillId: uuid(), name: 'redux', score: 2 },
+          { skillId: uuid(), name: 'javascript', score: 2 },
+          { skillId: uuid(), name: 'C#', score: 0 }
         ]
       },
       {
         id: uuid(),
         name: 'Barney',
         skills: [
-          { name: 'react', score: 1 },
-          { name: 'redux', score: 1 },
-          { name: 'javascript', score: 1 },
-          { name: 'C#', score: 0 }
+          { skillId: uuid(), name: 'react', score: 1 },
+          { skillId: uuid(), name: 'redux', score: 1 },
+          { skillId: uuid(), name: 'javascript', score: 1 },
+          { skillId: uuid(), name: 'C#', score: 0 }
         ]
       },
       {
         id: uuid(),
         name: 'Betty',
         skills: [
-          { name: 'react', score: 1 },
-          { name: 'redux', score: 1 },
-          { name: 'javascript', score: 1 },
-          { name: 'C#', score: 4 }
+          { skillId: uuid(), name: 'react', score: 1 },
+          { skillId: uuid(), name: 'redux', score: 1 },
+          { skillId: uuid(), name: 'javascript', score: 1 },
+          { skillId: uuid(), name: 'C#', score: 4 }
         ]
       }
     ]
@@ -94,6 +94,7 @@ class App extends Component {
 
     teamMembers.forEach(person => {
       person.skills.push({
+        id: uuid,
         name: skillName,
         score: 0
       })
@@ -104,15 +105,16 @@ class App extends Component {
       score: 0
     })
 
+    console.log(teamMembers);
+
     this.setState({
       teamMembers: teamMembers,
       skills: skills
     })
   }
 
-
   handleClickSkill = (skill) => {
-    skill.score++;
+    (skill.score < 4) ? skill.score++ : skill.score = 0;
     this.forceUpdate();
   }
 
