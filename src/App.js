@@ -18,40 +18,50 @@ class App extends Component {
         id: uuid(),
         name: 'Fred',
         skills: [
-          { skillId: uuid(), name: 'react', score: 3 },
-          { skillId: uuid(), name: 'redux', score: 2 },
-          { skillId: uuid(), name: 'javascript', score: 2 },
-          { skillId: uuid(), name: 'C#', score: 0 }
+          { name: 'react', score: 3 },
+          { name: 'redux', score: 2 },
+          { name: 'javascript', score: 2 },
+          { name: 'C#', score: 0 }
         ]
       },
       {
         id: uuid(),
         name: 'Wilma',
         skills: [
-          { skillId: uuid(), name: 'react', score: 3 },
-          { skillId: uuid(), name: 'redux', score: 2 },
-          { skillId: uuid(), name: 'javascript', score: 2 },
-          { skillId: uuid(), name: 'C#', score: 0 }
+          { name: 'react', score: 3 },
+          { name: 'redux', score: 2 },
+          { name: 'javascript', score: 2 },
+          { name: 'C#', score: 0 }
         ]
       },
       {
         id: uuid(),
         name: 'Barney',
         skills: [
-          { skillId: uuid(), name: 'react', score: 1 },
-          { skillId: uuid(), name: 'redux', score: 1 },
-          { skillId: uuid(), name: 'javascript', score: 1 },
-          { skillId: uuid(), name: 'C#', score: 0 }
+          { name: 'react', score: 1 },
+          { name: 'redux', score: 1 },
+          { name: 'javascript', score: 1 },
+          { name: 'C#', score: 0 }
         ]
       },
       {
         id: uuid(),
         name: 'Betty',
         skills: [
-          { skillId: uuid(), name: 'react', score: 1 },
-          { skillId: uuid(), name: 'redux', score: 1 },
-          { skillId: uuid(), name: 'javascript', score: 1 },
-          { skillId: uuid(), name: 'C#', score: 4 }
+          { name: 'react', score: 1 },
+          { name: 'redux', score: 1 },
+          { name: 'javascript', score: 1 },
+          { name: 'C#', score: 4 }
+        ]
+      },
+      {
+        id: uuid(),
+        name: 'Paul',
+        skills: [
+          { name: 'react', score: 0 },
+          { name: 'redux', score: 0 },
+          { name: 'javascript', score: 0 },
+          { name: 'C#', score: 3 }
         ]
       }
     ]
@@ -73,44 +83,77 @@ class App extends Component {
 
   handleAddTeamMember = (name) => {
     console.log('Adding team member: ' + name);
-    let { skills } = this.state;
+    let { teamMembers } = this.state;
+
+    // Pure function - do not mutate array.
+    let newTeamMembers = [];
+
+    teamMembers.forEach(person => {
+      newTeamMembers.push({
+        ...person
+      })
+    });
+
+    // get list of skills from existing users
+    let newMemberSkills = [];
+    teamMembers[0].skills.forEach(skill => {
+      newMemberSkills.push({
+        name: skill.name,
+        score: 0
+      });
+    })
+
+    newTeamMembers.push(
+      {
+        id: uuid(),
+        name: name,
+        skills: newMemberSkills
+      }
+    );
 
     this.setState({
-      teamMembers: [
-        ...this.state.teamMembers,
-        {
-          id: uuid(),
-          name: name,
-          skills: skills
-        }
-      ]
-    })
+      teamMembers: newTeamMembers
+    });
+
+    // this.setState({
+    //   teamMembers: [
+    //     ...this.state.teamMembers,
+    //     {
+    //       name: name,
+    //       skills: skills
+    //     }
+    //   ]
+    // })
+
+    console.log(this.state.teamMembers);
   }
 
 
   handleAddSkill = (skillName) => {
     console.log('Adding skill: ' + skillName);
-    let { teamMembers, skills } = this.state;
+    let { teamMembers } = this.state;
+
+    let newTeamMembers = []
 
     teamMembers.forEach(person => {
-      person.skills.push({
-        id: uuid,
+      newTeamMembers.push({
+        ...person
+      })
+    });
+
+    newTeamMembers.forEach(newPerson => {
+      newPerson.skills.push({
         name: skillName,
         score: 0
       })
     });
 
-    skills.push({
-      name: skillName,
-      score: 0
-    })
-
-    console.log(teamMembers);
-
     this.setState({
-      teamMembers: teamMembers,
-      skills: skills
+      teamMembers: newTeamMembers
     })
+
+    console.log(this.state.skills);
+    console.log(this.state.teamMembers);
   }
 
   handleClickSkill = (skill) => {

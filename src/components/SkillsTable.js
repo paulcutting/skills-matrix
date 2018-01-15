@@ -25,7 +25,7 @@ class MemberSkills extends React.Component {
     return (
       teamMember.skills.map((skill) => {
         return (
-          <td key={skill.id} className="skills-table-center" onClick={() => this.onClick(skill)}>{skill.score}</td>
+          <td className="skills-table-center" onClick={() => this.onClick(skill)}>{skill.score}</td>
         )
       })
     )
@@ -52,7 +52,7 @@ class SkillsTable extends React.Component {
             {
               skills.map((skill) => {
                 return (
-                  <th key={skill.id} className="skills-table-center">{skill.name}</th>
+                  <th className="skills-table-center">{skill.name}</th>
                 )
               })
             }
@@ -62,7 +62,7 @@ class SkillsTable extends React.Component {
           {
             skillsTable.map((teamMember) => {
               return (
-                <tr key={teamMember.id}>
+                <tr>
                   <td>{teamMember.name}</td>
                   <MemberSkills onClickSkill={onClickSkill} teamMember={teamMember} />
                 </tr>
