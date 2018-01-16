@@ -12,7 +12,7 @@ class App extends Component {
 
   constructor(props) {
     console.log('...starting!')
-
+    let noTeamMembers = [];
     let teamMembers = [
       {
         id: uuid(),
@@ -75,8 +75,7 @@ class App extends Component {
 
     super(props);
     this.state = {
-      teamMembers: teamMembers,
-      skills: skills
+      teamMembers: noTeamMembers
     };
   }
 
@@ -96,12 +95,14 @@ class App extends Component {
 
     // get list of skills from existing users
     let newMemberSkills = [];
-    teamMembers[0].skills.forEach(skill => {
-      newMemberSkills.push({
-        name: skill.name,
-        score: 0
-      });
-    })
+    if (teamMembers.length > 0) {
+      teamMembers[0].skills.forEach(skill => {
+        newMemberSkills.push({
+          name: skill.name,
+          score: 0
+        });
+      })
+    }
 
     newTeamMembers.push(
       {
@@ -114,16 +115,6 @@ class App extends Component {
     this.setState({
       teamMembers: newTeamMembers
     });
-
-    // this.setState({
-    //   teamMembers: [
-    //     ...this.state.teamMembers,
-    //     {
-    //       name: name,
-    //       skills: skills
-    //     }
-    //   ]
-    // })
 
     console.log(this.state.teamMembers);
   }
@@ -164,6 +155,7 @@ class App extends Component {
   render() {
     let { teamMembers } = this.state;
     const transparentBg = { background: 'transparent' }
+    const addSkillIsEnabled =  teamMembers.length > 0
 
     return (
       <div className="App">
@@ -182,7 +174,7 @@ class App extends Component {
                   </Panel.Heading>
                   <Panel.Body>
                     <AddTeamMember onAddTeamMember={this.handleAddTeamMember} />
-                    <AddSkill onAddSkill={this.handleAddSkill} />
+                    <AddSkill buttonEnabled = {addSkillIsEnabled} onAddSkill={this.handleAddSkill} />
                   </Panel.Body>
                 </Panel>
               </Col>

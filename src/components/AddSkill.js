@@ -16,12 +16,13 @@ class AddSkill extends React.Component {
     }
   }
   render() {
+    let { buttonEnabled } = this.props;
     return (
       <div>
         <form onSubmit={this.onSubmit}>
           <FormGroup controlId="formInlineSkillName">
             <FormControl inputRef={(input) => this.inputSkillName = input} type="text" placeholder="Skill" />
-            <Button bsStyle="primary" type="submit" >Add Skill</Button>
+            <Button disabled={!buttonEnabled} bsStyle="primary" type="submit" >Add Skill</Button>
           </FormGroup>{' '}
         </form>
       </div>

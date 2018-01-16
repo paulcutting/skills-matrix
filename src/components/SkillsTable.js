@@ -35,7 +35,7 @@ class MemberSkills extends React.Component {
 
 class SkillsTable extends React.Component {
   render() {
-    var { skillsTable, onClickSkill } = this.props;
+    let { skillsTable, onClickSkill } = this.props;
 
     // Extract skills list from team list.
     let skills = []
