@@ -1,12 +1,19 @@
 import React, { Component } from 'react';
 import './App.css';
 import uuid from 'node-uuid';
+import {createStore} from 'redux'
 
 import { Grid, Row, Col, Panel } from 'react-bootstrap';
 
 import AddTeamMember from './components/AddTeamMember.js';
 import AddSkill from './components/AddSkill.js';
 import SkillsTable from './components/SkillsTable.js';
+
+import reducer from './reducers/skill'
+
+
+const store = createStore(reducer);
+
 
 class App extends Component {
 
@@ -121,30 +128,10 @@ class App extends Component {
 
 
   handleAddSkill = (skillName) => {
-    console.log('Adding skill: ' + skillName);
-    let { teamMembers } = this.state;
-
-    let newTeamMembers = []
-
-    teamMembers.forEach(person => {
-      newTeamMembers.push({
-        ...person
-      })
+    store.dispatch({
+      type: 'ADD_SKILL',
+      text: skillName
     });
-
-    newTeamMembers.forEach(newPerson => {
-      newPerson.skills.push({
-        name: skillName,
-        score: 0
-      })
-    });
-
-    this.setState({
-      teamMembers: newTeamMembers
-    })
-
-    console.log(this.state.skills);
-    console.log(this.state.teamMembers);
   }
 
   handleClickSkill = (skill) => {
