@@ -88,42 +88,10 @@ class App extends Component {
 
 
   handleAddTeamMember = (name) => {
-    console.log('Adding team member: ' + name);
-    let { teamMembers } = this.state;
-
-    // Pure function - do not mutate array.
-    let newTeamMembers = [];
-
-    teamMembers.forEach(person => {
-      newTeamMembers.push({
-        ...person
-      })
-    });
-
-    // get list of skills from existing users
-    let newMemberSkills = [];
-    if (teamMembers.length > 0) {
-      teamMembers[0].skills.forEach(skill => {
-        newMemberSkills.push({
-          name: skill.name,
-          score: 0
-        });
-      })
-    }
-
-    newTeamMembers.push(
-      {
-        id: uuid(),
-        name: name,
-        skills: newMemberSkills
-      }
-    );
-
-    this.setState({
-      teamMembers: newTeamMembers
-    });
-
-    console.log(this.state.teamMembers);
+    store.dispatch({
+      type: 'ADD_TEAMMEMBER',
+      text: name
+    })
   }
 
 
@@ -171,7 +139,7 @@ class App extends Component {
                     <Panel.Title componentClass="h3">Skills Matrix</Panel.Title>
                   </Panel.Heading>
                   <Panel.Body>
-                    <SkillsTable skillsTable={teamMembers} onClickSkill={this.handleClickSkill} />
+                    <SkillsTable skillsTable={...store.getState()} onClickSkill={this.handleClickSkill} />
                   </Panel.Body>
                 </Panel>
               </Col>
